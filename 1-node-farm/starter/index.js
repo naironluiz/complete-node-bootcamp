@@ -6,6 +6,10 @@ const fs = require('fs')
 /* Modulo http = inclui propriedades de internet, incluindo criar um site*/
 const http = require('http')
 
+/* Modulo URL = pra roteamento e url */
+const url = require('url')
+
+
 ////////////////////////////////////////////
 //////////////////////////////////////////// FILES
 
@@ -72,4 +76,77 @@ fs.readFile('./txt/start.txt', 'utf-8', (err, data1) => {
 
 
 ////////////////////////////////////////////
-//////////////////////////////////////////// SERVER
+//////////////////////////////////////////// SERVER E ROUTING
+
+//função de trocar templates
+const replaceTemplate = (temp, product) =>{
+  let output = temp.replace(/{%PRODUCTNAME%}/g, product.productName)
+  output = output.replace(/{%IMAGE%}/g, product.image)
+  output = output.replace(/{%PRICE%}/g, product.price)
+  output = output.replace(/{%FROM%}/g, product.from)
+  output = output.replace(/{%NUTRIENTS%}/g, product.nutrients)
+  output = output.replace(/{%QUANTITY%}/g, product.quantity)
+  output = output.replace(/{%DESCRIPTION%}/g, product.description)
+  output = output.replace(/{%ID%}/g, product.id)
+
+  //organic é diferente porque é boolean
+  if (!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, 'not organic')
+
+  return output
+
+}
+
+
+
+//AULA DE API - USANDO SINCRONO COMO TOP LVL CODE PORQUE SÓ VAI SER CARREGADO UMA VEZ. JSON.PARSE = PARSE DE JSON
+const dataJson = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8');
+const dataObj = JSON.parse(dataJson)
+//AULA DE API - carregando os templates html de maneira sincrona = top lvl coding
+const tempOverview = fs.readFileSync(`${__dirname}/templates/overview.html`, 'utf-8');
+const tempProduct = fs.readFileSync(`${__dirname}/templates/product.html`, 'utf-8');
+const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'utf-8');
+
+
+/////////////////////////////////////////
+/* 1. Criar o servidor usando o método "create server" e armazenando numa variavel
+2. inserir um request e um response (req, res)
+3. fazer a função de callback que utilizara a response (res) */
+const server = http.createServer((req, res) =>{
+    /* "end" é outro método que manda uma mensagem de response*/
+    //4. armazenar url (req.url) numa variavel
+    const pathName = req.url
+
+
+    //5. cadeia de if e elses pra transitar pelas urls e ter diferentes resultados
+    //OVERVIEW PAGE
+    if(pathName === '/' || pathName === '/overview'){
+      res.writeHead(200, {'Content-type': 'text/html'})
+
+      //pegar cada elemento do JSON array utilizando map e colocar no lugar dos placeholders chamando a função replaceTemplate dentro da função/metodo map
+      const cardsHtml = dataObj.map(el=> replaceTemplate(tempCard, el)).join('')
+      const output = tempOverview.replace('{%PRODUCT_CARDS%}', cardsHtml)
+      res.end(output)
+
+      //PRODUCT PAGE
+    } else if (pathName ==='/product'){
+      res.writeHead(200, {'Content-type': 'text/html'})
+      res.end(tempProduct)
+
+      //API PAGE
+    } else if (pathName === '/api'){
+    //isso é boa prática i guess. Writehead = dizer ao browser o que estamos escrevendo e mandando
+    res.writeHead(200, {'Content-type': 'application/json'})
+   //poderia ser res.end(productData)
+    res.end(dataJson)  
+    
+    //NOT FOUND
+    } else {
+      res.end('<h1>P A G E  N O T  F O U N D</h1>')
+    }
+
+})
+
+/* server listen = primeiro a porta, depois o endereço de ip e depois a função */
+server.listen(8000, '127.0.0.1', () => {
+  console.log('Listening to requests on port 8000')
+})
