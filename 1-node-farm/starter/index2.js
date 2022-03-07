@@ -29,6 +29,9 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-type": "text/html" });
   } else if (pathName === "/product") {
     res.writeHead(200, { "Content-type": "text/html" });
+  } else if (pathName === "/api") {
+    res.writeHead(200, { "Content-type": "application-json" });
+    res.end(dataJson);
   }
 });
 
