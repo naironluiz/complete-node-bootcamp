@@ -23,7 +23,8 @@ const server = http.createServer((req, res) => {
   const pathName = req.url;
 
   /* 6. iniciar o routing utilizando ifs/else 
-  - fazer um writehead mandando um codigo de 3 digitos pro browser e o tipo do conteudo*/
+  - fazer um writehead mandando um codigo de 3 digitos pro browser e o tipo do conteudo
+  - o arquivo jeson será lido em /api*/
 
   //OVERVIEW
   if (pathName === "/" || pathName === "/overview") {
