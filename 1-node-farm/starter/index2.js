@@ -9,12 +9,19 @@ const fs = require("fs");
 const url = require("url");
 const http = require("http");
 
-/* 2. Criar um servidor utilizando http e create server numa const
-3. utilizar req url para capturar a url
-4. iniciar o server utilizando um listen, porta, endereço e FA */
+/* 3. Criar um servidor utilizando http e create server numa const
+4. utilizar req url para capturar a url
+5. iniciar o server utilizando um listen, porta, endereço e FA */
 
 const server = http.createServer((req, res) => {
-  const url = req.url;
+  const pathName = req.url;
+
+  /* 6. iniciar o routing utilizando ifs/else 
+  - fazer um writehead mandando um codigo de 3 digitos pro browser e o tipo do conteudo*/
+
+  if (pathName === "/" || pathName === "/overview") {
+    res.writeHead(200, { "Content-type": "text/html" });
+  }
 });
 
 server.listen(8000, "127.0.0.1", () => {
