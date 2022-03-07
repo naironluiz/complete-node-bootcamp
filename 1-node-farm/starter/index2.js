@@ -9,6 +9,12 @@ const fs = require("fs");
 const url = require("url");
 const http = require("http");
 
+/* 2. TOP LEVEL CODE = SÓ VAI RODAR UMA VEZ
+- capturar o arquivo Json onde estão as informações
+- parsear para o futuro utilizando JSON.parse */
+const dataJson = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const dataObj = JSON.parse(dataJson);
+
 /* 3. Criar um servidor utilizando http e create server numa const
 4. utilizar req url para capturar a url
 5. iniciar o server utilizando um listen, porta, endereço e FA */
@@ -20,6 +26,8 @@ const server = http.createServer((req, res) => {
   - fazer um writehead mandando um codigo de 3 digitos pro browser e o tipo do conteudo*/
 
   if (pathName === "/" || pathName === "/overview") {
+    res.writeHead(200, { "Content-type": "text/html" });
+  } else if (pathName === "/product") {
     res.writeHead(200, { "Content-type": "text/html" });
   }
 });
