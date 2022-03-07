@@ -32,6 +32,9 @@ const server = http.createServer((req, res) => {
   } else if (pathName === "/api") {
     res.writeHead(200, { "Content-type": "application-json" });
     res.end(dataJson);
+  } else {
+    res.writeHead(404);
+    res.end("<h1>P A G E   N O T    F O U N D</h1>");
   }
 });
 
