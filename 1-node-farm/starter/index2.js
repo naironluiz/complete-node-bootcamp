@@ -25,13 +25,17 @@ const server = http.createServer((req, res) => {
   /* 6. iniciar o routing utilizando ifs/else 
   - fazer um writehead mandando um codigo de 3 digitos pro browser e o tipo do conteudo*/
 
+  //OVERVIEW
   if (pathName === "/" || pathName === "/overview") {
     res.writeHead(200, { "Content-type": "text/html" });
+    //PRODUTO
   } else if (pathName === "/product") {
     res.writeHead(200, { "Content-type": "text/html" });
+    //API
   } else if (pathName === "/api") {
     res.writeHead(200, { "Content-type": "application-json" });
     res.end(dataJson);
+    //404
   } else {
     res.writeHead(404);
     res.end("<h1>P A G E   N O T    F O U N D</h1>");
