@@ -133,7 +133,7 @@ const server = http.createServer((req, res) => {
 
     //API PAGE
   } else if (pathName === "/api") {
-    //isso é boa prática i guess. Writehead = dizer ao browser o que estamos escrevendo e mandando
+    //isso é boa prática i guess. writeHead = dizer ao browser o que estamos escrevendo e mandando
     res.writeHead(200, { "Content-type": "application/json" });
     //poderia ser res.end(productData)
     res.end(dataJson);
