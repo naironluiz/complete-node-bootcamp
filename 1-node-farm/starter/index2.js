@@ -17,7 +17,7 @@ const dataJson = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(dataJson);
 //TEMPLATES
 const tempOverview = fs.readFileSync(
-  `${__dirname}/templates/template-overview.html`,
+  `${__dirname}/templates/overview.html`,
   "utf-8"
 );
 const tempCard = fs.readFileSync(
@@ -25,7 +25,7 @@ const tempCard = fs.readFileSync(
   "utf-8"
 );
 const tempProduct = fs.readFileSync(
-  `${__dirname}/templates/template-product.html`,
+  `${__dirname}/templates/product.html`,
   "utf-8"
 );
 
@@ -43,6 +43,8 @@ const server = http.createServer((req, res) => {
   //OVERVIEW
   if (pathName === "/" || pathName === "/overview") {
     res.writeHead(200, { "Content-type": "text/html" });
+    // teste
+    res.end(tempOverview);
     //PRODUTO
   } else if (pathName === "/product") {
     res.writeHead(200, { "Content-type": "text/html" });
