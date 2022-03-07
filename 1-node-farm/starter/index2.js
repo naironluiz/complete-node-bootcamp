@@ -11,9 +11,23 @@ const http = require("http");
 
 /* 2. TOP LEVEL CODE = SÓ VAI RODAR UMA VEZ
 - capturar o arquivo Json onde estão as informações
-- parsear para o futuro utilizando JSON.parse */
+- parsear para o futuro utilizando JSON.parse
+- chamar os templates de html. só precisa chamar eles uma vez */
 const dataJson = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(dataJson);
+//TEMPLATES
+const tempOverview = fs.readFileSync(
+  `${__dirname}/templates/template-overview.html`,
+  "utf-8"
+);
+const tempCard = fs.readFileSync(
+  `${__dirname}/templates/template-card.html`,
+  "utf-8"
+);
+const tempProduct = fs.readFileSync(
+  `${__dirname}/templates/template-product.html`,
+  "utf-8"
+);
 
 /* 3. Criar um servidor utilizando http e create server numa const
 4. utilizar req url para capturar a url
@@ -44,5 +58,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(8000, "127.0.0.1", () => {
-  console.log("Listening to requests on port 8000");
+  console.log("Requests on 8000");
 });
