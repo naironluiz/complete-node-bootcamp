@@ -29,6 +29,8 @@ const tempProduct = fs.readFileSync(
   "utf-8"
 );
 
+const replaceTemplate = (temp, product) => {};
+
 /* 3. Criar um servidor utilizando http e create server numa const
 4. utilizar req url para capturar a url
 5. iniciar o server utilizando um listen, porta, endereço e FA */
@@ -43,8 +45,12 @@ const server = http.createServer((req, res) => {
   //OVERVIEW
   if (pathName === "/" || pathName === "/overview") {
     res.writeHead(200, { "Content-type": "text/html" });
-    // teste
-    res.end(tempOverview);
+    /* FAZENDO O LOOP DAS INFORMAÇÕES EM JSON UTILIZANDO JS.MAP
+    - utilizar o que foi pego em jason lá em cima
+    - utilizar map pra percorrer tudo
+    - map deve ser usado em uma const */
+
+    const cardsHtml = dataObj.map((el) => replaceTemplate(tempCard, el));
     //PRODUTO
   } else if (pathName === "/product") {
     res.writeHead(200, { "Content-type": "text/html" });
