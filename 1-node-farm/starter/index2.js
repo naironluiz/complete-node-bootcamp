@@ -78,6 +78,13 @@ const server = http.createServer((req, res) => {
     //PRODUTO
   } else if (pathname === "/product") {
     res.writeHead(200, { "Content-type": "text/html" });
+    /* - através do URL parsing, query capturou o id da url
+    - product recebe o conteudo JSON indicado pelo query id colocado no url
+    - output usa a função de replace do id capturado em product no lugar do template
+    - res.end manda a captura final */
+    const product = dataObj[query.id];
+    const output = replaceTemplate(tempProduct, product);
+    res.end(output);
     //API
   } else if (pathname === "/api") {
     res.writeHead(200, { "Content-type": "application-json" });
