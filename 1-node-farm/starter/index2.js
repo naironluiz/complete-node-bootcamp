@@ -17,7 +17,7 @@ const dataJson = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(dataJson);
 //TEMPLATES
 const tempOverview = fs.readFileSync(
-  `${__dirname}/templates/overview.html`,
+  `${__dirname}/templates/template-overview.html`,
   "utf-8"
 );
 const tempCard = fs.readFileSync(
@@ -25,7 +25,7 @@ const tempCard = fs.readFileSync(
   "utf-8"
 );
 const tempProduct = fs.readFileSync(
-  `${__dirname}/templates/product.html`,
+  `${__dirname}/templates/template-product.html`,
   "utf-8"
 );
 
