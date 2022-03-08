@@ -41,6 +41,7 @@ const replaceTemplate = (temp, product) => {
 
   if (!product.organic)
     output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic");
+  return output;
 };
 
 /* 3. Criar um servidor utilizando http e create server numa const
@@ -62,7 +63,11 @@ const server = http.createServer((req, res) => {
     - utilizar map pra percorrer tudo
     - map deve ser usado em uma const aqui chamada cardsHtml */
 
-    const cardsHtml = dataObj.map((el) => replaceTemplate(tempCard, el));
+    const cardsHtml = dataObj
+      .map((el) => replaceTemplate(tempCard, el))
+      .join("");
+    const output = tempOverview.replace("{%PRODUCT_CARDS%}", cardsHtml);
+    res.end(output);
 
     //PRODUTO
   } else if (pathName === "/product") {
