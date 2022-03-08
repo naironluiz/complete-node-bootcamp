@@ -11,7 +11,7 @@ const http = require("http");
 
 /* 2. TOP LEVEL CODE = SÓ VAI RODAR UMA VEZ
 - capturar o arquivo Json onde estão as informações
-- parsear para o futuro utilizando JSON.parse
+- parsear para o futuro utilizando JSON.parse que transforma as informações em objetos JS
 - chamar os templates de html. só precisa chamar eles uma vez */
 const dataJson = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(dataJson);
@@ -48,9 +48,10 @@ const server = http.createServer((req, res) => {
     /* FAZENDO O LOOP DAS INFORMAÇÕES EM JSON UTILIZANDO JS.MAP
     - utilizar o que foi pego em jason lá em cima
     - utilizar map pra percorrer tudo
-    - map deve ser usado em uma const */
+    - map deve ser usado em uma const aqui chamada cardsHtml */
 
     const cardsHtml = dataObj.map((el) => replaceTemplate(tempCard, el));
+
     //PRODUTO
   } else if (pathName === "/product") {
     res.writeHead(200, { "Content-type": "text/html" });
