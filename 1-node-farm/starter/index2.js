@@ -49,14 +49,20 @@ const replaceTemplate = (temp, product) => {
 5. iniciar o server utilizando um listen, porta, endereço e FA */
 
 const server = http.createServer((req, res) => {
+  /* 7. URL PARSING
+  - o atributo url tem várias propriedades
+  - pode assignar elas a objetos em js utilizando parsing
+  - url parse = objeto = url.parse(req.url, true)
+  - no exemplo, query e pathname receberam essas propriedades do parse de url e poderão ser integradas no código */
   const pathName = req.url;
+  const { query, pathname } = url.parse(req.url, true);
 
   /* 6. iniciar o routing utilizando ifs/else 
   - fazer um writehead mandando um codigo de 3 digitos pro browser e o tipo do conteudo
   - o arquivo jeson será lido em /api*/
 
   //OVERVIEW
-  if (pathName === "/" || pathName === "/overview") {
+  if (pathname === "/" || pathname === "/overview") {
     res.writeHead(200, { "Content-type": "text/html" });
     /* FAZENDO O LOOP DAS INFORMAÇÕES EM JSON UTILIZANDO JS.MAP
     - utilizar o que foi pego em jason lá em cima
@@ -70,10 +76,10 @@ const server = http.createServer((req, res) => {
     res.end(output);
 
     //PRODUTO
-  } else if (pathName === "/product") {
+  } else if (pathname === "/product") {
     res.writeHead(200, { "Content-type": "text/html" });
     //API
-  } else if (pathName === "/api") {
+  } else if (pathname === "/api") {
     res.writeHead(200, { "Content-type": "application-json" });
     res.end(dataJson);
     //404
